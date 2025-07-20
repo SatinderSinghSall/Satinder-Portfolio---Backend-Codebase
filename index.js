@@ -10,7 +10,12 @@ const contactRoutes = require("./routes/contact");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://satinder-portfolio.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
