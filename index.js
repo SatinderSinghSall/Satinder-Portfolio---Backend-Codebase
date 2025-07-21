@@ -10,9 +10,14 @@ const contactRoutes = require("./routes/contact");
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://satinder-portfolio.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "https://satinder-portfolio.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
