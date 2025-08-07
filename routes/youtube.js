@@ -2,6 +2,41 @@ const express = require("express");
 const router = express.Router();
 const YouTubeVideo = require("../models/YouTubeVideo");
 const { verifyToken, requireAdmin } = require("../middleware/auth");
+const multer = require("multer");
+const cloudinary = require("../config/cloudinary");
+const streamifier = require("streamifier");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Upload image to Cloudinary
+router.post("/upload", upload.single("image"), async (req, res) => {
+  if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+
+  try {
+    const streamUpload = () => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "thumbnails" },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const result = await streamUpload();
+    res.status(200).json({ url: result.secure_url });
+  } catch (err) {
+    console.error("Upload error:", err);
+    res.status(500).json({ message: "Upload failed", error: err.message });
+  }
+});
 
 // GET all videos (optionally filtered)
 router.get("/", async (req, res) => {
