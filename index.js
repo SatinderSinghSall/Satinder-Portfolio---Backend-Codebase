@@ -8,6 +8,7 @@ const projectRoutes = require("./routes/project");
 const blogRoutes = require("./routes/blog");
 const contactRoutes = require("./routes/contact");
 const dashboardRoutes = require("./routes/dashboard");
+const youtubeRoutes = require("./routes/youtube");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/youtube", youtubeRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server & APIs is running...🚀");
