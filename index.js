@@ -11,6 +11,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+//! To run the backend for DEVELOPMENT -> npm run dev
+//! To run the backend for PRODUCTION -> npm start
+
 const authRoutes = require("./routes/auth");
 const projectRoutes = require("./routes/project");
 const blogRoutes = require("./routes/blog");
