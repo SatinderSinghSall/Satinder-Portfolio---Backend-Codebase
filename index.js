@@ -20,6 +20,7 @@ const blogRoutes = require("./routes/blog");
 const contactRoutes = require("./routes/contact");
 const dashboardRoutes = require("./routes/dashboard");
 const youtubeRoutes = require("./routes/youtube");
+const editorRoutes = require("./routes/editorRoutes");
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/youtube", youtubeRoutes);
+app.use("/api/editor", editorRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server & APIs is running...🚀");
@@ -50,8 +52,8 @@ mongoose
   .then(() => {
     app.listen(PORT, () =>
       console.log(
-        `Server APIs running on port ${PORT} & database connected! 🚀`
-      )
+        `Server APIs running on port ${PORT} & database connected! 🚀`,
+      ),
     );
   })
   .catch((err) => console.error(err));
