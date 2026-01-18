@@ -11,7 +11,7 @@ const blogSchema = new mongoose.Schema(
     editorType: {
       type: String,
       enum: ["markdown", "editorjs"],
-      default: "editorjs",
+      default: "markdown",
     },
 
     // ✅ Markdown content
