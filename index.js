@@ -21,6 +21,8 @@ const contactRoutes = require("./routes/contact");
 const dashboardRoutes = require("./routes/dashboard");
 const youtubeRoutes = require("./routes/youtube");
 const editorRoutes = require("./routes/editorRoutes");
+const freelanceRoutes = require("./routes/freelance");
+const uploadRoutes = require("./routes/upload");
 
 const app = express();
 
@@ -40,6 +42,8 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/youtube", youtubeRoutes);
 app.use("/api/editor", editorRoutes);
+app.use("/api/freelance", freelanceRoutes);
+app.use("/api/upload", uploadRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server & APIs is running...🚀");
