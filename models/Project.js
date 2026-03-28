@@ -7,7 +7,8 @@ const projectSchema = new mongoose.Schema(
     technologies: { type: [String], required: true },
     githubLink: { type: String, required: true },
     link: String,
-    image: String,
+
+    images: [{ type: String }],
 
     featured: { type: Boolean, default: false },
     priority: { type: Number, default: 0 },

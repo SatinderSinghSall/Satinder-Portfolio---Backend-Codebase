@@ -72,7 +72,7 @@ router.post(
   "/",
   verifyToken,
   requireAdmin,
-  parser.single("image"),
+  parser.array("images", 10),
   async (req, res) => {
     try {
       const {
@@ -85,9 +85,8 @@ router.post(
         priority,
       } = req.body;
 
-      const imageUrl = req.file?.path;
+      const imageUrls = req.files?.map((file) => file.path) || [];
 
-      // assign next order automatically
       const lastProject = await Project.findOne().sort({ order: -1 });
 
       const newProject = new Project({
@@ -95,7 +94,7 @@ router.post(
         description,
         link,
         githubLink,
-        image: imageUrl,
+        images: imageUrls,
         featured: featured === "true",
         priority: Number(priority) || 0,
         order: lastProject ? lastProject.order + 1 : 0,
@@ -116,7 +115,7 @@ router.put(
   "/:id",
   verifyToken,
   requireAdmin,
-  parser.single("image"),
+  parser.array("images", 10),
   async (req, res) => {
     try {
       const {
@@ -139,8 +138,8 @@ router.put(
         technologies: technologies?.split(",").map((t) => t.trim()) || [],
       };
 
-      if (req.file?.path) {
-        updateData.image = req.file.path;
+      if (req.files?.length) {
+        updateData.images = req.files.map((file) => file.path);
       }
 
       const updated = await Project.findByIdAndUpdate(
@@ -149,12 +148,8 @@ router.put(
         { new: true },
       );
 
-      if (!updated)
-        return res.status(404).json({ message: "Project not found" });
-
       res.json(updated);
     } catch (err) {
-      console.error("Error updating project:", err);
       res.status(400).json({ message: "Update failed" });
     }
   },

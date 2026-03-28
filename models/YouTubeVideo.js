@@ -15,7 +15,7 @@ const youTubeVideoSchema = new mongoose.Schema(
     },
     publishedAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("YouTubeVideo", youTubeVideoSchema);
