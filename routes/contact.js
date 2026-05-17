@@ -1,16 +1,52 @@
 const express = require("express");
 const router = express.Router();
+
 const ContactMessage = require("../models/ContactMessage");
 const { verifyToken, requireAdmin } = require("../middleware/auth");
+const sendEmail = require("../services/emailService");
+const adminNotificationTemplate = require("../templates/adminNotificationTemplate");
+const userAcknowledgementTemplate = require("../templates/userAcknowledgementTemplate");
 
 //! Public route — send message
 router.post("/", async (req, res) => {
   try {
     const msg = new ContactMessage(req.body);
+
     await msg.save();
-    res.status(201).json({ message: "Message received" });
+
+    const { name, email, subject, message } = req.body;
+
+    // Send email to admin
+    await sendEmail({
+      to: process.env.ADMIN_EMAIL,
+      subject: `New Contact Message from ${name}`,
+      html: adminNotificationTemplate({
+        name,
+        email,
+        subject,
+        message,
+      }),
+      replyTo: email,
+    });
+
+    // Send acknowledgement to user
+    await sendEmail({
+      to: email,
+      subject: "Thanks for contacting Satinder Singh Sall",
+      html: userAcknowledgementTemplate({
+        name,
+      }),
+    });
+
+    res.status(201).json({
+      message: "Message received successfully",
+    });
   } catch (err) {
-    res.status(500).json({ message: "Failed to save message" });
+    console.error(err);
+
+    res.status(500).json({
+      message: "Failed to send message",
+    });
   }
 });
 
