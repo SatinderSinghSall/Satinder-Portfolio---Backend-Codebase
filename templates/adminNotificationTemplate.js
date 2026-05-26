@@ -434,7 +434,7 @@ const adminNotificationTemplate = ({ name, email, subject, message }) => {
                     <td align="center">
 
                       <a
-                        href="https://satinderpoetry.com/admin/contact-messages"
+                        href="https://satinder-portfolio.vercel.app/admin/contact-messages"
                         class="cta-button"
                         style="
                           display: inline-block;
