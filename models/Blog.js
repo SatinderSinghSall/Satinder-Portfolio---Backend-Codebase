@@ -7,25 +7,8 @@ const blogSchema = new mongoose.Schema(
 
     summary: { type: String, trim: true, maxlength: 250 },
 
-    // ✅ NEW: editor type
-    editorType: {
-      type: String,
-      enum: ["markdown", "editorjs"],
-      default: "markdown",
-    },
-
-    // ✅ Markdown content
-    content: { type: String, default: "" },
-
-    // ✅ EditorJS content
-    contentBlocks: {
-      type: Object,
-      default: {
-        time: Date.now(),
-        blocks: [],
-        version: "2.28.2",
-      },
-    },
+    // Pure Markdown Content
+    content: { type: String, required: true, default: "" },
 
     image: { type: String, trim: true },
     ogImage: { type: String, trim: true },
