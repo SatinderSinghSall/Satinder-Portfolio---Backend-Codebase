@@ -23,6 +23,7 @@ const youtubeRoutes = require("./routes/youtube");
 const editorRoutes = require("./routes/editorRoutes");
 const freelanceRoutes = require("./routes/freelance");
 const uploadRoutes = require("./routes/upload");
+const userRoutes = require("./routes/user");
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/api/youtube", youtubeRoutes);
 app.use("/api/editor", editorRoutes);
 app.use("/api/freelance", freelanceRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server & APIs is running...🚀");
