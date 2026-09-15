@@ -24,6 +24,7 @@ const editorRoutes = require("./routes/editorRoutes");
 const freelanceRoutes = require("./routes/freelance");
 const uploadRoutes = require("./routes/upload");
 const userRoutes = require("./routes/user");
+const galleryRoutes = require("./routes/gallery");
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use("/api/editor", editorRoutes);
 app.use("/api/freelance", freelanceRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/gallery", galleryRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server & APIs is running...🚀");
