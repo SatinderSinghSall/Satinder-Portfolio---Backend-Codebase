@@ -32,6 +32,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:4173",
   "https://satinder-portfolio.vercel.app",
+  "https://satinderpoetry.com",
 ];
 
 app.use(cors({ origin: allowedOrigins, credentials: true }));
